@@ -1,0 +1,29 @@
+public boolean isAlienSorted(String[] words, String order) {
+        if(words == null || words.length == 0 || order == null || order.length() == 0)
+            return false;
+
+        int[] index = new int[26];
+        for(int i=0; i< order.length(); i++) {
+            index[order.charAt(i)-'a'] = i;
+        }
+
+
+        search: for(int i=0; i < words.length -1; i++) {
+            String word1 = words[i];
+            String word2 = words[i + 1];
+
+            for (int k = 0; k < Math.min(word1.length(), word2.length()); k++) {
+                char c1 = word1.charAt(k);
+                char c2 = word2.charAt(k);
+                if (c1 != c2) {
+                    if (index[c1 - 'a'] > index[c2 - 'a']) {
+                        return false;
+                    }
+                    break;
+                }
+                if (word1.length() > word2.length())
+                    return false;
+            } //for loop ends here
+        }
+        return true;
+    }
